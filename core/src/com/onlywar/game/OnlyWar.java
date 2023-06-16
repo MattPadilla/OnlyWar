@@ -361,6 +361,7 @@ public class OnlyWar extends ApplicationAdapter {
 			welcome.getLocationUI().getElements().add(new UIElement(new Sprite(new Texture("Locations/WhiteRectangle.png")), 365, 210, "Start Game\nClick Here", new BitmapFont()));
 			welcome.getLocationUI().getElements().get(1).getSprite().setX(305);
 			welcome.getLocationUI().getElements().get(1).getSprite().setY(150);
+			welcome.getLocationUI().getElements().add(new UIElement(null, 100, 220, "Right: D or Right Arrow Key\nLeft A or Left Arrow Key\nJump: W or up Arrow Key\nAttack: Q", new BitmapFont()));
 			
 							
 			// Draws text to screen.
@@ -368,8 +369,7 @@ public class OnlyWar extends ApplicationAdapter {
 			welcome.getLocationUI().getElements().get(1).getWords().setColor(Color.BLACK);
 			welcome.getLocationUI().drawElements();
 			
-			Sprite whiteBox = new Sprite(welcome.getLocationUI().getElements().get(1).getSprite());
-			System.out.println(Gdx.input.getY()); 
+			Sprite whiteBox = new Sprite(welcome.getLocationUI().getElements().get(1).getSprite()); 
 			
 			if( Gdx.input.getPressure() == 1 
 			&& Gdx.input.getX() >= whiteBox.getX() 
