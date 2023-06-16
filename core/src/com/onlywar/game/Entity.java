@@ -155,7 +155,7 @@ public class Entity {
 	public static boolean collision(Entity one, Entity two) {
 		boolean collideX = false;
 		boolean collideY = false;
-		if(one.getX() + one.getSprite().getRegionWidth() >= two.getX() && one.getX() + one.getSprite().getRegionWidth()/2 <= two.getX() + two.getSprite().getRegionWidth()) {
+		if(one.getX() + one.getSprite().getRegionWidth() >= two.getX() && one.getX() + one.getSprite().getRegionWidth() <= two.getX() + two.getSprite().getRegionWidth()) {
 			collideX = true;
 		}
 		
