@@ -127,16 +127,20 @@ public class OnlyWar extends ApplicationAdapter {
 		//* Player Jumping *//
 		///////////////////////
 		
+		// Position in the jump and speed
+		// yf = yi + (vi)t - 0.5gt^2
+		// vf = vi - gt
 		if(p1.isJumping) {
 			p1.setY(level1.getGroundLevel() + p1.getJumpSpeed()*(p1.airTime(timeIndex)) - 0.5f*level1.getGravity()*(p1.airTime(timeIndex))*(p1.airTime(timeIndex)));
 			p1.setCurrentSpeedY(p1.getJumpSpeed() - level1.getGravity()*(p1.airTime(timeIndex)));
 		}
 		
+		// Ensures that the player does not go lower than ground level
 		else {
 			p1.setY(level1.getGroundLevel());
 		}
 		
-		
+		// flags jumping as being off when the final speed equals the negative of the initial speed
 		if(p1.getCurrentSpeedY() < -200f && p1.getY() <= level1.getGroundLevel()) {
 			p1.isJumping = false;
 			p1.setCurrentSpeedY(0);
@@ -147,7 +151,7 @@ public class OnlyWar extends ApplicationAdapter {
 		//* Player Attacking *//
 		///////////////////////
 		
-		
+		// calls p1.attack() when p1 is attacking
 		if(p1.isAttacking)
 			p1.attack(timeIndex); 
 		
@@ -213,7 +217,10 @@ public class OnlyWar extends ApplicationAdapter {
 		if(!dialogue && p1.getHealthPoints() > 0 && boss.getHealthPoints() > 0 && level1.isActiveLocation()) {
 		
 			// moves the player character to the right/left when the right/left arrow key or the 'd'/'a' key is pressed
+			// Register when the player is attacking
 			// Changes the current texture of p1's sprite to match the timeIndex
+			
+			// Attack
 			if(Gdx.input.isKeyPressed(Input.Keys.Q) && !p1.isAttacking) {
 				p1.setLastTimeAttack(timeIndex);
 				p1.isAttacking = true;
@@ -223,6 +230,7 @@ public class OnlyWar extends ApplicationAdapter {
 					p1.getSprite().setTexture(p1.getTextures().get(13));
 			}
 		
+			// Right
 			if(!p1.isAttacking && (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D))) { 
 				p1.isRunning = true;
 				p1.moveRight();
@@ -230,12 +238,14 @@ public class OnlyWar extends ApplicationAdapter {
 				
 			}
 		
+			// Left
 			if(!p1.isAttacking && (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A))) {
 				p1.isRunning = true;
 				p1.moveLeft();
 				p1.getSprite().setTexture(p1.runningLeft.getKeyFrame(timeIndex, true));
 			}
 		
+			// Jump
 			if( !p1.isAttacking & (((Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) && p1.getY() == level1.getGroundLevel()))) {
 				p1.isRunning = true;
 				p1.jump();
@@ -252,7 +262,7 @@ public class OnlyWar extends ApplicationAdapter {
 		// Instantiates UI
 		level1.createLocationUI();
 		
-		
+		// Adds UI Elements to the locationUI
 		level1.getLocationUI().getElements().add(new UIElement(null, 25, 450, p1.getName() + " HP: " + p1.getHealthPoints(), new BitmapFont()));
 		level1.getLocationUI().getElements().add(new UIElement(null, 700, 450, boss.getName() + " HP: " + boss.getHealthPoints(), new BitmapFont()));
 		level1.getLocationUI().getElements().add(new UIElement(null, level1.getWidth()/2 - 50, level1.getHeight()/2 + 10, "You Lose!!", new BitmapFont()));
@@ -455,16 +465,15 @@ public class OnlyWar extends ApplicationAdapter {
 	
 	
 	// Called when the OnlyWar object is destroyed
-		@Override
-		public void dispose () {
-
-			// Destroys objects and sets primitives to default values
-			welcome.dispose();
-			level1.dispose();
-			p1.dispose();
-			boss.dispose();
-			timeIndex = 0;
-		}
+	// Destroys objects and sets primitives to default values
+	@Override
+	public void dispose () {
+		welcome.dispose();
+		level1.dispose();
+		p1.dispose();
+		boss.dispose();
+		timeIndex = 0;
+	}
 	
 	
 }
