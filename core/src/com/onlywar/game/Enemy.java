@@ -19,6 +19,7 @@ public class Enemy extends Entity {
 	// projectile from attack1
 	private Projectile projectile1;
 	
+	// projectile from attack2
 	private Projectile projectile2;
 	
 	// If attack1 is in progress
@@ -32,9 +33,6 @@ public class Enemy extends Entity {
 	private Animation<Texture> runningRight;
 	private Animation<Texture> attacking1Left;
 	private Animation<Texture> attacking1Right;
-	
-	// The current frame
-	private int frame;
 	
 	// If the enemy is looking left or right
 	private boolean isLeft;
@@ -51,6 +49,7 @@ public class Enemy extends Entity {
 	///////////////////////
 
 
+	// Parameterized Constructor
 	public Enemy(ArrayList<Texture> texes, String name, Projectile project1, Projectile project2, float startX, float startY) {
 		super(texes, 100, name);
 		
@@ -73,41 +72,27 @@ public class Enemy extends Entity {
 		
 	}
 	
-	public Enemy(Enemy e) {
-		
-		super(e.getTextures(), e.speed, e.getName());
-		setX(e.getX());
-		setY(e.getY());
-		
-		projectile1 = e.projectile1;
-		projectile1.setX(e.getX());
-		projectile1.setY(e.getY());
-		
-		healthPoints = e.healthPoints;
-		
-		frame = e.frame;
-		isLeft = e.isLeft;
-	}
-	
-	
 	///////////////////////
 	//* HP & Damage *//
 	///////////////////////
 	
-	
+	// Getter for HP
 	public int getHealthPoints() {
 		return healthPoints;
 	}
 	
+	// Setter for HP
 	public void setHealthPoints(int hp) {
 		healthPoints = hp;
 	}
 	
 	
+	// Returns the last time this enemy was damaged as a time in seconds
 	public float getLastTimeDamaged() {
 		return lastTimeDamaged;
 	}
 
+	// Sets the last time this enemy was damaged as a time in seconds
 	public void setLastTimeDamaged(float lastTimeDamaged) {
 		this.lastTimeDamaged = lastTimeDamaged;
 	}
@@ -118,47 +103,56 @@ public class Enemy extends Entity {
 	///////////////////////
 	
 
+	// Moves the Enemy Right a specified amount
 	public void moveRight(float deltaX) {
 		this.setX(this.getX() + deltaX);
 		isLeft = false;
 	}
 	
+	// Moves the Enemy Right as determined by the speed
 	public void moveRight() {
 		this.setX(this.getX() + getSpeed()*Gdx.graphics.getDeltaTime());
 		isLeft = false;
 	}
 	
+	// Moves the Enemy Left a specified amount
 	public void moveLeft(float deltaX) {
 		this.setX(this.getX() - deltaX);
 		isLeft = true;
 	}
 	
+	// Moves the Enemy Left as determined by the speed
 	public void moveLeft() {
 		this.setX(this.getX() - getSpeed()*Gdx.graphics.getDeltaTime());
 		isLeft = true;
 	}
 	
+	// Getter for RunningLeft animation
 	public Animation<Texture> getRunningLeft() {
 		return runningLeft;
 	}
 
+	// Setter for RunningLeft animation
 	public void setRunningLeft(Animation<Texture> runningLeft) {
 		this.runningLeft = runningLeft;
 	}
 
+	// Getter for RunningRight animation
 	public Animation<Texture> getRunningRight() {
 		return runningRight;
 	}
 
+	// Setter for RunningRight animation
 	public void setRunningRight(Animation<Texture> runningRight) {
 		this.runningRight = runningRight;
 	}
 
-	
+	// returns whether the Enemy is facing left or not
 	public boolean getIsLeft() {
 		return isLeft;
 	}
 	
+	// sets whether the Enemy is facing left or not
 	public void setIsLeft(boolean bool) {
 		isLeft = bool;
 	}
@@ -198,7 +192,8 @@ public class Enemy extends Entity {
 		projectile1 = proj;
 	}
 	
-	// returns the necessary sprite for the enemy's projectile attack based on the time
+	// returns the necessary sprite for the enemy's projectile attack 
+	// based on the time and orientation
 	public Texture attack1(float time) {
 		
 		this.attacking1Left.setFrameDuration(0.25f);
@@ -216,15 +211,14 @@ public class Enemy extends Entity {
 			projectile1.setX(this.getX() - 20);
 		else
 			projectile1.setX(this.getX() + 20);
-		projectile1.setY(23 + 48);
+		projectile1.setY(23 + getY());
 	}
 		
 		
-	// Controls the movement of the (attack1)projectile and how long it is visible
+	// Controls the movement of the attack1 projectile and how long it is visible
 	public void manageProjectileLifeTime1(float time) {
 		
 		if(this.projectile1.isVisible()) {
-			projectile1.setY(23 + 48);
 			
 			if(isLeft) {
 				this.projectile1.moveLeft();
@@ -249,15 +243,17 @@ public class Enemy extends Entity {
 	//*  Attack2  *//
 	////////////////////////
 	
+	// Getter for projectile2
 	public Projectile getProjectile2() {
 		return projectile2;
 	}
 
+	// Setter for projectile2
 	public void setProjectile2(Projectile projectile2) {
 		this.projectile2 = projectile2;
 	}
 
-	// changes the sprite for the enemy's spike attack
+	// Changes the enemey's texture for the enemy's spike attack
 	public Texture attack2(float time) {
 		if(isLeft)
 			return this.getTextures().get(23);
@@ -275,6 +271,7 @@ public class Enemy extends Entity {
 	}
 	
 	
+	// Controls the movement of the attack2 projectile and how long it is visible
 	public void manageProjectileLifeTime2(float time) {
 		
 		if(this.projectile2.isVisible() ) {
@@ -345,6 +342,7 @@ public class Enemy extends Entity {
 			return this.getTextures().get(0);
 		}
 		
+		
 		// Idle textures
 		else if(!isAttack1 && time < lastAttackTime + 5) {
 			if(isLeft)
@@ -390,11 +388,11 @@ public class Enemy extends Entity {
 		
 		// Requirements for attack 1
 		if(this.distX(p1) >= 300 && this.distX(p1) <= 600) {
-			
+									
 			lastAttackTime = time;
-			isAttack1 = true;
+			isAttack1 = true;	
 		}
-		
+							
 		// Requirements for attack 2
 		else if(this.distX(p1) <= 50) {
 			
@@ -407,12 +405,11 @@ public class Enemy extends Entity {
 	}
 	
 	
-	
+	// Destroys all objects && sets primitives to default values
 	public void dispose() {
 		
 		healthPoints = 0;
 		lastAttackTime = 0;
-		frame = 0;
 		
 		projectile1.dispose();
 		
