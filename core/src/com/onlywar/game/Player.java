@@ -53,7 +53,7 @@ public class Player extends Entity {
 	private Animation<Texture> attackingRight;
 	private Animation<Texture> attackingLeft;
 	
-	
+	// Constructor with an ArrayList of textures, a name, and a starting position
 	public Player(ArrayList<Texture> texes, String name, float startX, float startY) {
 		
 		super(texes, 200, name);
@@ -86,15 +86,18 @@ public class Player extends Entity {
 		
 		
 	}
-	
+
+	// Getter for Weapon
 	public Weapon getWeapon() {
 		return weapon;
 	}
 
+	// Setter for Weapon
 	public void setWeapon(Weapon weapon) {
 		this.weapon = weapon;
 	}
 
+	// Standard Position for Weapon
 	public void weaponStandardPos(float time) {
 		weapon.setY(getY() + 23);
 		if(isRight) {
@@ -131,10 +134,12 @@ public class Player extends Entity {
 		this.healthPoints = healthPoints;
 	}
 
+	// Getter for last time the pleyer was damaged
 	public float getLastTimeDamaged() {
 		return lastTimeDamaged;
 	}
 
+	// Setter for last time the pleyer was damaged
 	public void setLastTimeDamaged(float lastTimeDamaged) {
 		this.lastTimeDamaged = lastTimeDamaged;
 	}
@@ -249,7 +254,7 @@ public class Player extends Entity {
 		attackingLeft = ani;
 	}
 	
-	
+	// Makes sure that the right textures are loaded for the right amount of time and if the player is attacking or not
 	public void attack(float time) {
 		weaponStandardPos(time);
 		if(isRight) {
