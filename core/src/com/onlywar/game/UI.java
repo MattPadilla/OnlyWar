@@ -6,7 +6,8 @@ package com.onlywar.game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.util.ArrayList;
 public class UI {
-	
+
+	// ArrayList of UIElements which contain Sprites, Strings, BitmapFonts, and 
 	private ArrayList<UIElement> elements;
 	private SpriteBatch textBatch;
 	
