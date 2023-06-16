@@ -1,7 +1,6 @@
 // Matthew A. Padilla
 // OnlyWar: Entity Class
 
-
 package com.onlywar.game;
 
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ public class Entity {
 	
 	
 	
-
+	// Constructor for multiple textures
 	public Entity(ArrayList<Texture> arr, float speed, String name) {
 		
 		entityTextures = new ArrayList<Texture>();
@@ -35,6 +34,7 @@ public class Entity {
 		
 	}
 
+	// Constructor for one texture
 	public Entity(Texture tex, float speed, String name) {
 		
 		entityTextures = null;
@@ -47,60 +47,72 @@ public class Entity {
 	}
 	
 	
+	// Getter for name
 	public String getName() {
 		return name;
 	}
 
 
+	// Setter for name
 	public void setName(String name) {
 		this.name = name;
 	}
 
 
+	// Getter for speed
 	public float getSpeed() {
 		return this.speed;
 	}
 	
+	// Setter for name
 	public void setSpeed(float speed) {
 		this.speed = speed;
 	}
 	
+	// Getter for entitySprite
 	public Sprite getSprite() {
 		
 		return entitySprite;
 	}
 	
+	// Getter for entitySprite
 	public void setSprite(Sprite spr) {
 		
 		this.entitySprite.set(spr);
 	}
 	
+	// Getter for an ArrayList of Textures
 	public ArrayList<Texture> getTextures() {
 		
 		return entityTextures;
 	}
 	
-	
+	// Setter for an ArrayList of Textures
 	public void setTextures(ArrayList<Texture> newTextures) {
 		this.entityTextures = newTextures;
 	}
 	
+	// Getter for X-coordinate
 	public float getX() {
 		return this.getSprite().getX();
 	}
 	
+	// Setter for X-coordinate
 	public void setX(float x) {
 		this.getSprite().setX(x);
 	}
 	
+	// Getter for Y-coordinate
 	public float getY() {
 		return this.getSprite().getY();
 	}
 	
+	// Setter for X-coordinate
 	public void setY(float y) {
 		this.getSprite().setY(y);
 	}
 	
+	// returns the X-distance between two entities
 	public float distX(Entity other) {
 		if(this.getX() < other.getX())
 			return Math.abs(this.getX() - other.getX()) - this.getSprite().getRegionWidth();
@@ -139,6 +151,7 @@ public class Entity {
 
 		}
 	
+	// Returns true if the Sprites of two entities are touching
 	public static boolean collision(Entity one, Entity two) {
 		boolean collideX = false;
 		boolean collideY = false;
@@ -161,6 +174,8 @@ public class Entity {
 		
 		return (collideX && collideY);
 	}
+	
+	// Default methods for entities
 	
 	public void moveLeft() {}
 	
