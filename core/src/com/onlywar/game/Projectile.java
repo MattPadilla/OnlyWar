@@ -9,11 +9,14 @@ import com.badlogic.gdx.graphics.Texture;
 import java.util.ArrayList;
 
 public class Projectile extends Entity {
-	
+
+	// If the projectile is visible and should be seen
 	private boolean isVisible;
-	
+
+	// The total time the projectile should be visible
 	private float lifeTime;
-	
+
+	// How long the projectile has been visible
 	private float timeAlive;
 
 	public Projectile(ArrayList<Texture> tex, float speed, String name, float lT) {
